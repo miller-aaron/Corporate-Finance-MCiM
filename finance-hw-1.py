@@ -52,7 +52,6 @@ First Payment: 7461.18013753000
 % Required: 0.0994824018337333
 """
 
-import math
 import numpy_financial as npf
 from sympy import symbols, Eq, solve
 
@@ -61,9 +60,9 @@ from sympy import symbols, Eq, solve
 #------ Problem 1  ------
 print(f"Problem 1 ")
 
-current_age = 18
-acct_bal = 3996
-rate = .08
+CURRENT_AGE = 18
+ACCT_BAL = 3996
+RATE = .08
 
 def future_val(rate, beg_bal, yrs):
   return beg_bal * (1+rate)**yrs
@@ -73,15 +72,14 @@ def present_val(rate, end_bal, yrs):
 
 print("Problem 1")
 #a. calculate addition interest between 18 and 25
-print(f"a. {future_val(rate, acct_bal, 25-current_age)}") 
+print(f"a. {npf.fv(rate=RATE, nper=25-CURRENT_AGE, pmt=0, pv=-ACCT_BAL)}")
 
 #b. 65th
-print(f"b. {future_val(rate, acct_bal, 65-current_age)}")
+print(f"b. {npf.fv(rate=RATE, nper=65-CURRENT_AGE, pmt=0, pv=-ACCT_BAL)}")
 
 #c. discount current balance back to PV when grandfather invested 
-print(f"c. {present_val(rate,acct_bal, current_age)} -- Problem 1")
-#check that answer
-print(f"{future_val(rate, 1000, current_age)} -- check")
+print(f"c. {npf.pv(rate=RATE, nper=CURRENT_AGE, pmt=0, fv=-ACCT_BAL)}")
+
 
 
 #------ Problem 2 ------
@@ -97,12 +95,12 @@ high_growth_time = 5
 slow_growth_rate = .02
 
 
-initCashFlows = [future_val(high_growth_rate, beg_bal, x)/(1+rate)**x for x in range (1, high_growth_time+1)]
+initCashFlows = [future_val(rate=high_growth_rate, beg_bal=beg_bal, yrs=x)/(1+RATE)**x for x in range (1, high_growth_time+1)]
 pv_initial_growth = sum(initCashFlows)
 CF1 = future_val(slow_growth_rate, initCashFlows[-1], 1)
-perpituity_cash_flows = growing_perp(rate, CF1, slow_growth_rate)
+perpituity_cash_flows = growing_perp(RATE, CF1, slow_growth_rate)
 
-print(f"{perpituity_cash_flows + pv_initial_growth}")
+print(f"PV of all future company earnings: {perpituity_cash_flows + pv_initial_growth}")
 
 
 #------ Problem 3 ------ 
@@ -188,11 +186,11 @@ EAR = calc_EAR(RATE*2, 2)
 pv_signing = 400000
 
 # PV of Salary ()
-pv_salary = npf.pv(RATE, 6, -SALARY/2)
+pv_salary = npf.pv(rate=RATE, nper=6, pmt=-SALARY/2)
 print(f"pv_salary: {pv_salary}")
 
 # PV of Bonuses
-pv_bonus = npf.pv(EAR, 3, -PROB_WEIGHT_AVG_BONUS)
+pv_bonus = npf.pv(rate=EAR, nper=3, pmt=-PROB_WEIGHT_AVG_BONUS)
 print(f"pv_bonus: {pv_bonus}")
 
 # PV of Def Payments
