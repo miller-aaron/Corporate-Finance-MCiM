@@ -1,3 +1,57 @@
+"""
+Problem 1
+a. 6848.441778042966
+b. 148779.12062667691
+c. 999.9951203479017 -- Problem 1
+
+Problem 2
+51981214.36183257
+
+Problem 3
+current_bal: 154286.21654390302
+A. Monthly Payments on New Loan: -987.9115559587024
+B. Monthly Payments on New Loan (25yr Term): -1053.8346050735254
+C. Time to repay at prior payment amount: 14.15746245052627
+full_loan_bal: 205259.22621364315
+D. Additional Amt Borrowed: $50973.00966974013
+
+Porblem 4
+interest_payment: 437.5
+new_interest_payment: 350.0
+detla: 87.5
+additional_debt: 8750.0
+
+Problem 5
+pv_salary: 614665.5407506742
+pv_bonus: 107417.27896613715
+pv_all_def_payments: 505365.11631501745
+pv_def_payments: 505365.11631501705
+Total Contract Value: 1627447.9360318284
+
+Problem 6
+
+A. NPV of a, b, c: (119369.36936936935, 9639.639639639528, -16666.666666666686)
+Proj A and B have a positive NPV so they should be pursued
+
+B. Max Avaialable T1 : 3029200.0
+
+C. NPV of a, b, c: (135321.10091743118, 21376.146788990824, -10550.458715596353)
+Proj A and B still have a positive NPV so the answer to A would not change
+
+ The new answer for B: Max avaialable T1 : 3004800.0
+
+PROBLEM 7
+Present Value of Flower Vow: 3633.0674357650714
+
+PROBLEM 8
+ret_balance needed to sustain 100K annual burn: 1294767.2300430937
+contribution needed: 9366.29389698343
+
+PROBLEM 9
+First Payment: 7461.18013753000
+% Required: 0.0994824018337333
+"""
+
 import math
 import numpy_financial as npf
 from sympy import symbols, Eq, solve
