@@ -85,24 +85,38 @@ print(f"c. {npf.pv(rate=RATE, nper=CURRENT_AGE, pmt=0, fv=-ACCT_BAL)}")
 #------ Problem 2 ------
 print("\nProblem 2")
 
+#Define a function to calculate the present value of a growing perpetuity
 def growing_perp(intRate, cashFlow, growthRate):
+  # The formula for the present value of a growing perpetuity is Cash Flow / (Interest Rate - Growth Rate)
   return cashFlow/(intRate - growthRate)
 
+# Set the beginning balance
 beg_bal = 1000000
+# Set the high growth rate
 high_growth_rate = .3
+# Set the duration of high growth
 high_growth_time = 5
 
+# Set the slow growth rate
 slow_growth_rate = .02
 
-
+# Calculate the present value of cash flows during the high growth period
+# This is done by discounting the future value of the beginning balance at the high growth rate for each year
 initCashFlows = [future_val(rate=high_growth_rate, beg_bal=beg_bal, yrs=x)/(1+RATE)**x for x in range (1, high_growth_time+1)]
+# Sum up the present values to get the total present value during the high growth period
 pv_initial_growth = sum(initCashFlows)
+
+# Calculate the cash flow for the first year after the high growth period
+# This is done by growing the last cash flow during the high growth period at the slow growth rate for one year
 CF1 = future_val(slow_growth_rate, initCashFlows[-1], 1)
+
+# Calculate the present value of cash flows during the slow growth period
+# This is done using the formula for a growing perpetuity
 perpituity_cash_flows = growing_perp(RATE, CF1, slow_growth_rate)
 
+# Print the present value of all future company earnings
+# This is the sum of the present value during the high growth period and the present value during the slow growth period
 print(f"PV of all future company earnings: {perpituity_cash_flows + pv_initial_growth}")
-
-
 #------ Problem 3 ------ 
 print("\nProblem 3")
 
