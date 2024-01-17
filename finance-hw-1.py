@@ -9,8 +9,8 @@ Problem 2
 
 Problem 3
 current_bal: 154286.21654390302
-A. Monthly Payments on New Loan: -987.9115559587024
-B. Monthly Payments on New Loan (25yr Term): -1053.8346050735254
+A. Monthly Payments on New Loan: 987.9115559587024
+B. Monthly Payments on New Loan (25yr Term): 1053.8346050735254
 C. Time to repay at prior payment amount: 14.15746245052627
 full_loan_bal: 205259.22621364315
 D. Additional Amt Borrowed: $50973.00966974013
@@ -86,9 +86,9 @@ print(f"c. {npf.pv(rate=RATE, nper=CURRENT_AGE, pmt=0, fv=-ACCT_BAL)}")
 print("\nProblem 2")
 
 #Define a function to calculate the present value of a growing perpetuity
-def growing_perp(intRate, cashFlow, growthRate):
+def growing_perp(int_rate, cash_flow, growth_rate):
   # The formula for the present value of a growing perpetuity is Cash Flow / (Interest Rate - Growth Rate)
-  return cashFlow/(intRate - growthRate)
+  return cash_flow/(int_rate - growth_rate)
 
 # Set the beginning balance
 beg_bal = 1000000
@@ -102,13 +102,13 @@ slow_growth_rate = .02
 
 # Calculate the present value of cash flows during the high growth period
 # This is done by discounting the future value of the beginning balance at the high growth rate for each year
-initCashFlows = [future_val(rate=high_growth_rate, beg_bal=beg_bal, yrs=x)/(1+RATE)**x for x in range (1, high_growth_time+1)]
+init_cash_flows = [future_val(rate=high_growth_rate, beg_bal=beg_bal, yrs=x)/(1+RATE)**x for x in range (1, high_growth_time+1)]
 # Sum up the present values to get the total present value during the high growth period
-pv_initial_growth = sum(initCashFlows)
+pv_initial_growth = sum(init_cash_flows)
 
 # Calculate the cash flow for the first year after the high growth period
 # This is done by growing the last cash flow during the high growth period at the slow growth rate for one year
-CF1 = future_val(slow_growth_rate, initCashFlows[-1], 1)
+CF1 = future_val(rate=slow_growth_rate, present_val=init_cash_flows[-1], periods=1)
 
 # Calculate the present value of cash flows during the slow growth period
 # This is done using the formula for a growing perpetuity
@@ -141,12 +141,12 @@ initial_bal = pv_annuity(INIT_LOAN_PMT, INIT_LOAN_RATE, COMP_FREQ, TOTAL_PERIODS
 current_bal = INIT_LOAN_PMT * annuity_factor(INIT_LOAN_RATE, REMAINING_PERIODS)
 print(f"current_bal: {current_bal}")
 
-print(f"A. Monthly Payments on New Loan: {npf.pmt(NEW_LOAN_RATE/COMP_FREQ, TOTAL_PERIODS, current_bal)}")
-print(f"B. Monthly Payments on New Loan (25yr Term): {npf.pmt(NEW_LOAN_RATE/COMP_FREQ, REMAINING_PERIODS, current_bal)}")
-print(f"C. Time to repay at prior payment amount: {npf.nper(NEW_LOAN_RATE/COMP_FREQ, -INIT_LOAN_PMT, current_bal)/COMP_FREQ}")
+print(f"A. Monthly Payments on New Loan: {npf.pmt(rate=NEW_LOAN_RATE/COMP_FREQ, nper=TOTAL_PERIODS, pv=current_bal)}")
+print(f"B. Monthly Payments on New Loan (25yr Term): {npf.pmt(rate=NEW_LOAN_RATE/COMP_FREQ, nper=REMAINING_PERIODS, pv=current_bal)}")
+print(f"C. Time to repay at prior payment amount: {npf.nper(rate=NEW_LOAN_RATE/COMP_FREQ, pmt=-INIT_LOAN_PMT, pv=current_bal)/COMP_FREQ}")
 
 #determine the present value of a loan that requires 25yr paymnet of $1402, the delta is the answer
-full_loan_bal = -npf.pv(NEW_LOAN_RATE/COMP_FREQ, REMAINING_PERIODS, INIT_LOAN_PMT)
+full_loan_bal = -npf.pv(rate=NEW_LOAN_RATE/COMP_FREQ, nper=REMAINING_PERIODS, pmt=INIT_LOAN_PMT)
 print(f"full_loan_bal: {full_loan_bal}")
 print(f"D. Additional Amt Borrowed: ${full_loan_bal - current_bal}")
 
@@ -315,8 +315,3 @@ t_value = 35      # Number of periods
 first_payment = solve(fv_annuity.subs({FV: fv_value, r: r_value, g: g_value, t: t_value}), C)
 print(f"First Payment: {first_payment[0]}")
 print(f"% Required: {first_payment[0]/INIT_SALARY}")
-
-
-
-
-
