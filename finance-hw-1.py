@@ -57,9 +57,17 @@ from sympy import symbols, Eq, solve
 
 #FINANCE HOME WORK 1 
 
-#------ Problem 1  ------
-print(f"Problem 1 ")
+#print answer in a readable, financial format
+def print_answer(label, value):
+  if isinstance(value, tuple):
+    formatted_values = [f"${val:,.2f}" for val in value]
+    formatted_value = ", ".join(formatted_values)
+    print(f"{label}: {formatted_value}")
+  else:
+    formatted_value = "{:,.2f}".format(value)
+    print(f"{label}: ${formatted_value}")
 
+#------ Problem 1  ------
 CURRENT_AGE = 18
 ACCT_BAL = 3996
 RATE = .08
@@ -72,13 +80,13 @@ def present_val(rate, end_bal, yrs):
 
 print("Problem 1")
 #a. calculate addition interest between 18 and 25
-print(f"a. {npf.fv(rate=RATE, nper=25-CURRENT_AGE, pmt=0, pv=-ACCT_BAL)}")
+print_answer(label="A.", value=npf.fv(rate=RATE, nper=25-CURRENT_AGE, pmt=0, pv=-ACCT_BAL))
 
 #b. 65th
-print(f"b. {npf.fv(rate=RATE, nper=65-CURRENT_AGE, pmt=0, pv=-ACCT_BAL)}")
+print_answer(label="B.", value=npf.fv(rate=RATE, nper=65-CURRENT_AGE, pmt=0, pv=-ACCT_BAL))
 
 #c. discount current balance back to PV when grandfather invested 
-print(f"c. {npf.pv(rate=RATE, nper=CURRENT_AGE, pmt=0, fv=-ACCT_BAL)}")
+print_answer(label="C.", value=npf.pv(rate=RATE, nper=CURRENT_AGE, pmt=0, fv=-ACCT_BAL))
 
 
 
@@ -108,7 +116,7 @@ pv_initial_growth = sum(init_cash_flows)
 
 # Calculate the cash flow for the first year after the high growth period
 # This is done by growing the last cash flow during the high growth period at the slow growth rate for one year
-CF1 = future_val(rate=slow_growth_rate, present_val=init_cash_flows[-1], periods=1)
+CF1 = future_val(rate=slow_growth_rate, beg_bal=init_cash_flows[-1], yrs=1)
 
 # Calculate the present value of cash flows during the slow growth period
 # This is done using the formula for a growing perpetuity
@@ -116,7 +124,8 @@ perpituity_cash_flows = growing_perp(RATE, CF1, slow_growth_rate)
 
 # Print the present value of all future company earnings
 # This is the sum of the present value during the high growth period and the present value during the slow growth period
-print(f"PV of all future company earnings: {perpituity_cash_flows + pv_initial_growth}")
+print_answer(label="Answer - PV of all future company earnings", value=perpituity_cash_flows + pv_initial_growth)
+
 #------ Problem 3 ------ 
 print("\nProblem 3")
 
@@ -139,16 +148,16 @@ NEW_LOAN_RATE = .06625
 initial_bal = pv_annuity(INIT_LOAN_PMT, INIT_LOAN_RATE, COMP_FREQ, TOTAL_PERIODS)
 # determine the balance of the loan at year 5
 current_bal = INIT_LOAN_PMT * annuity_factor(INIT_LOAN_RATE, REMAINING_PERIODS)
-print(f"current_bal: {current_bal}")
+print_answer(label="Balance at 5 years:", value=current_bal)
 
-print(f"A. Monthly Payments on New Loan: {npf.pmt(rate=NEW_LOAN_RATE/COMP_FREQ, nper=TOTAL_PERIODS, pv=current_bal)}")
-print(f"B. Monthly Payments on New Loan (25yr Term): {npf.pmt(rate=NEW_LOAN_RATE/COMP_FREQ, nper=REMAINING_PERIODS, pv=current_bal)}")
+print_answer(label="A. Monthly Payments on New Loan:", value=npf.pmt(rate=NEW_LOAN_RATE/COMP_FREQ, nper=TOTAL_PERIODS, pv=current_bal))
+print_answer(label="B. Monthly Payments on New Loan (25yr Term):", value=npf.pmt(rate=NEW_LOAN_RATE/COMP_FREQ, nper=REMAINING_PERIODS, pv=current_bal))
 print(f"C. Time to repay at prior payment amount: {npf.nper(rate=NEW_LOAN_RATE/COMP_FREQ, pmt=-INIT_LOAN_PMT, pv=current_bal)/COMP_FREQ}")
 
 #determine the present value of a loan that requires 25yr paymnet of $1402, the delta is the answer
 full_loan_bal = -npf.pv(rate=NEW_LOAN_RATE/COMP_FREQ, nper=REMAINING_PERIODS, pmt=INIT_LOAN_PMT)
-print(f"full_loan_bal: {full_loan_bal}")
-print(f"D. Additional Amt Borrowed: ${full_loan_bal - current_bal}")
+print_answer(label="Full Loan Balance:", value=full_loan_bal)
+print_answer(label="D. Additional Amt Borrowed:", value=full_loan_bal - current_bal)
 
 
 #------ Porblem 4 ------
@@ -160,19 +169,19 @@ NEW_APR = .12
 
 #determine the currently minimum monthly payment for the existing card
 interest_payment = DEBT_BAL * CURR_APR/COMP_FREQ
-print(f"interest_payment: {interest_payment}")
+print_answer(label="existing card min payment (interest)", value=interest_payment)
 
 #determine new monthly payment minimum
 new_interest_payment = DEBT_BAL * NEW_APR/COMP_FREQ
-print(f"new_interest_payment: {new_interest_payment}")
+print_answer(label="new monthly payment amount", value=new_interest_payment)
 
 #determine delta
 delta_monthly_pmt = interest_payment - new_interest_payment
-print(f"detla: {delta_monthly_pmt}")
+print_answer(label="detla between payments", value=delta_monthly_pmt)
 
 #what is the debt balance increase that can lead to the same monthly payment
 additional_debt = delta_monthly_pmt / (NEW_APR/COMP_FREQ)
-print(f"additional_debt: {additional_debt}")
+print_answer(label="Answer - amount of additional debt that yields same payment", value=additional_debt)
 
 
 #------ Problem 5 ------
@@ -201,11 +210,11 @@ pv_signing = 400000
 
 # PV of Salary ()
 pv_salary = npf.pv(rate=RATE, nper=6, pmt=-SALARY/2)
-print(f"pv_salary: {pv_salary}")
+print_answer(label="PV of Salary", value=pv_salary)
 
 # PV of Bonuses
 pv_bonus = npf.pv(rate=EAR, nper=3, pmt=-PROB_WEIGHT_AVG_BONUS)
-print(f"pv_bonus: {pv_bonus}")
+print_answer(label="PV of Bonus", value=pv_bonus)
 
 # PV of Def Payments
 pv_def_payments = 0
@@ -214,14 +223,13 @@ for x in range(total_periods+1):
   if (x > 6):
     pv_def_payments += npf.pv(rate=RATE, nper=x, pmt=0, fv=-DEF_AMT/2)
 
-# Method 2 - calculate PV of all cashflows then discount to PV
+# Method 2 - calculate PV of all cashflows in year 3 dollars then discount to PV
 all_def_payments = npf.pv(rate=RATE, nper=DEF_DURATION*2, pmt=-DEF_AMT/2)
 pv_alt_def_payments = npf.pv(rate=RATE, nper=SALARY_DURATION*2, pmt=0, fv=-all_def_payments)
 
-print(f"pv_all_def_payments: {pv_alt_def_payments}")
-print(f"pv_def_payments: {pv_def_payments}")
+print_answer(label="PV of Deferred Pymts", value=pv_def_payments)
 # PV Contract
-print(f"Total Contract Value: {pv_signing + pv_salary + pv_bonus + pv_def_payments}")
+print_answer(label="Answer - Total Contract Value", value=pv_signing + pv_salary + pv_bonus + pv_def_payments)
 
 
 #------ Problem 6 ------
@@ -243,7 +251,7 @@ npv_a = npf.npv(rate=RATE, values=[-A_PRINCIPAL, A_RETURN])
 npv_b = npf.npv(rate=RATE, values=[-B_PRINCIPAL, B_RETURN])
 npv_c = npf.npv(rate=RATE, values=[-C_PRINCIPAL, C_RETURN])
 
-print(f"\nA. NPV of a, b, c: {npv_a, npv_b, npv_c}")
+print_answer(label="A. NPV of a, b, c", value=(npv_a, npv_b, npv_c))
 print("Proj A and B have a positive NPV so they should be pursued")
 
 #B
@@ -251,20 +259,20 @@ amt_after_consum = INVEST_AMT - T0_CONSUMPTION
 amt_after_proj = amt_after_consum - A_PRINCIPAL - B_PRINCIPAL
 val_with_interest = npf.fv(rate=RATE, nper=1, pmt=0, pv=-amt_after_proj)
 total = val_with_interest + A_RETURN + B_RETURN
-print(f"\nB. Max Avaialable T1 : {total}")
+print_answer(label="B. Max Available T1", value=total)
 
 #C
 npv_a = npf.npv(rate=MOD_RATE, values=[-A_PRINCIPAL, A_RETURN])
 npv_b = npf.npv(rate=MOD_RATE, values=[-B_PRINCIPAL, B_RETURN])
 npv_c = npf.npv(rate=MOD_RATE, values=[-C_PRINCIPAL, C_RETURN])
-print(f"\nC. NPV of a, b, c: {npv_a, npv_b, npv_c}")
+print_answer(label="C. NPV of a, b, c", value=(npv_a, npv_b, npv_c))
 print("Proj A and B still have a positive NPV so the answer to A would not change")
 
 amt_after_consum = INVEST_AMT - T0_CONSUMPTION
 amt_after_proj = amt_after_consum - A_PRINCIPAL - B_PRINCIPAL
 val_with_interest = npf.fv(rate=MOD_RATE, nper=1, pmt=0, pv=-amt_after_proj)
 total = val_with_interest + A_RETURN + B_RETURN
-print(f"\n The new answer for B: Max avaialable T1 : {total}")
+print_answer(label="The new answer for B- Max avaialable T1", value=total)
 
 #------ PROBLEM 7 ------
 print(f"\nPROBLEM 7")
@@ -274,7 +282,8 @@ RATE = .04
 COMP_FREQ = 52
 PERIODS = 30 * COMP_FREQ
 
-print(f"Present Value of Flower Vow: {npf.pv(rate=RATE/COMP_FREQ, nper=PERIODS, pmt=-FLOWER_COST)}")
+pv_flower_vow = npf.pv(rate=RATE/COMP_FREQ, nper=PERIODS, pmt=-FLOWER_COST)
+print_answer(label="Present Value of Flower Vow", value=pv_flower_vow)
 
 #------ PROBLEM 8 ------
 print(f"\nPROBLEM 8") 
@@ -288,11 +297,11 @@ RET_BURN = 100000
 
 #Caclculate how much you need in retirement to sustain $100k/yr
 ret_balance = npf.pv(rate=RET_ACCT_RATE, nper=RET_LENGTH, pmt=-RET_BURN)
-print(f"ret_balance needed to sustain 100K annual burn: {ret_balance}")
+print_answer(label="Retirement balance needed to sustain 100K annual burn", value=ret_balance)
 
-#What annual contribution fulfills this account balance requirement
+# What annual contribution fulfills this account balance requirement
 contribution = npf.pmt(rate=RET_ACCT_RATE, nper=RET_AGE-CURR_AGE, pv=0, fv=-ret_balance)
-print(f"contribution needed: {contribution}")
+print_answer(label="Contribution Required", value=contribution)
 
 #------ PROBLEM 9 ------
 print(f"\nPROBLEM 9") 
@@ -313,5 +322,5 @@ t_value = 35      # Number of periods
 
 # Solve for C (first payment)
 first_payment = solve(fv_annuity.subs({FV: fv_value, r: r_value, g: g_value, t: t_value}), C)
-print(f"First Payment: {first_payment[0]}")
-print(f"% Required: {first_payment[0]/INIT_SALARY}")
+print_answer(label="First Payment", value=first_payment[0])
+print(f"Percent of Salary Required: {first_payment[0]/INIT_SALARY*100:.2f}%")
