@@ -2,20 +2,25 @@
 FINANCE HOME WORK 2 - OUTPUT
 
 Problem 1 
-fv_7: 1948.7171000000012, fv_20: 6727.499949325611, fv_75: 1271895.3713950724
+Future Value (7): $1,948.72
+Future Value (20): $6,727.50
+Future Value (75): $1,271,895.37
 
 Problem 2 
-pv_8: 6768.39362028687, pv_20: 1486.4362802414346, pv_6: 9145.421925178718
+Present Value (8): $6,768.39
+Present Value (20): $1,486.44
+Present Value (6): $9,145.42
 
 Problem 3 
-Yes, b/c NPV is positive: 5729.6891844011725
+Positive NPV: $5,729.69
 
 Problem 4 
-pv of perpitutity is above initial investment so you should proceed. PV = 1052.6315789473683
+pv of perpitutity is above initial investment so you should proceed.
+PV of Perpituity: $1,052.63
 
 Problem 5 
-fv of annuity from 25: 1295282.5935499938
-fv of annuity from 35: 566416.0555670906
+Future Value of Annuity (from 25): $1,295,282.59
+Future Value of Annuity (from 35): $566,416.06
 """
 
 #SOLUTION:
