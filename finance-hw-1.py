@@ -1,13 +1,13 @@
 """
-Problem 1
+PROBLEM 1
 A.: $6,848.44
 B.: $148,779.12
 C.: $1,000.00
 
-Problem 2
+PROBLEM 2
 Answer - PV of all future company earnings: $51,981,214.36
 
-Problem 3
+PROBLEM 3
 Balance at 5 years:: $154,286.22
 A. Monthly Payments on New Loan:: $-987.91
 B. Monthly Payments on New Loan (25yr Term):: $-1,053.83
@@ -15,19 +15,19 @@ C. Time to repay at prior payment amount: 14.15746245052627
 Full Loan Balance:: $205,259.23
 D. Additional Amt Borrowed:: $50,973.01
 
-Porblem 4
+PROBLEM 4
 existing card min payment (interest): $437.50
 new monthly payment amount: $350.00
 detla between payments: $87.50
 Answer - amount of additional debt that yields same payment: $8,750.00
 
-Problem 5
+PROBLEM 5
 PV of Salary: $614,665.54
 PV of Bonus: $107,417.28
 PV of Deferred Pymts: $505,365.12
 Answer - Total Contract Value: $1,627,447.94
 
-Problem 6
+PROBLEM 6
 A. NPV of a, b, c: $119,369.37, $9,639.64, $-16,666.67
 Proj A and B have a positive NPV so they should be pursued
 B. Max Available T1: $3,029,200.00
