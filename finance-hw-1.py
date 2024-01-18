@@ -1,55 +1,50 @@
 """
 Problem 1
-a. 6848.441778042966
-b. 148779.12062667691
-c. 999.9951203479017
+A.: $6,848.44
+B.: $148,779.12
+C.: $1,000.00
 
 Problem 2
-51981214.36183257
+Answer - PV of all future company earnings: $51,981,214.36
 
 Problem 3
-current_bal: 154286.21654390302
-A. Monthly Payments on New Loan: 987.9115559587024
-B. Monthly Payments on New Loan (25yr Term): 1053.8346050735254
+Balance at 5 years:: $154,286.22
+A. Monthly Payments on New Loan:: $-987.91
+B. Monthly Payments on New Loan (25yr Term):: $-1,053.83
 C. Time to repay at prior payment amount: 14.15746245052627
-full_loan_bal: 205259.22621364315
-D. Additional Amt Borrowed: $50973.00966974013
+Full Loan Balance:: $205,259.23
+D. Additional Amt Borrowed:: $50,973.01
 
 Porblem 4
-interest_payment: 437.5
-new_interest_payment: 350.0
-detla: 87.5
-additional_debt: 8750.0
+existing card min payment (interest): $437.50
+new monthly payment amount: $350.00
+detla between payments: $87.50
+Answer - amount of additional debt that yields same payment: $8,750.00
 
 Problem 5
-pv_salary: 614665.5407506742
-pv_bonus: 107417.27896613715
-pv_all_def_payments: 505365.11631501745
-pv_def_payments: 505365.11631501705
-Total Contract Value: 1627447.9360318284
+PV of Salary: $614,665.54
+PV of Bonus: $107,417.28
+PV of Deferred Pymts: $505,365.12
+Answer - Total Contract Value: $1,627,447.94
 
 Problem 6
-
-A. NPV of a, b, c: (119369.36936936935, 9639.639639639528, -16666.666666666686)
+A. NPV of a, b, c: $119,369.37, $9,639.64, $-16,666.67
 Proj A and B have a positive NPV so they should be pursued
-
-B. Max Avaialable T1 : 3029200.0
-
-C. NPV of a, b, c: (135321.10091743118, 21376.146788990824, -10550.458715596353)
+B. Max Available T1: $3,029,200.00
+C. NPV of a, b, c: $135,321.10, $21,376.15, $-10,550.46
 Proj A and B still have a positive NPV so the answer to A would not change
-
- The new answer for B: Max avaialable T1 : 3004800.0
+The new answer for B- Max avaialable T1: $3,004,800.00
 
 PROBLEM 7
-Present Value of Flower Vow: 3633.0674357650714
+Present Value of Flower Vow: $3,633.07
 
 PROBLEM 8
-ret_balance needed to sustain 100K annual burn: 1294767.2300430937
-contribution needed: 9366.29389698343
+Retirement balance needed to sustain 100K annual burn: $1,294,767.23
+Contribution Required: $9,366.29
 
 PROBLEM 9
-First Payment: 7461.18013753000
-% Required: 0.0994824018337333
+First Payment: $7,461.18
+% Required: 9.95%
 """
 
 import numpy_financial as npf
